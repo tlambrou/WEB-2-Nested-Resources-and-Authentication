@@ -1,0 +1,69 @@
+
+
+body {
+  font-family: helvetica;
+  font-size: 15pt;
+  font-weight: 580;
+}
+
+h1 {
+  font-weight: 1000;
+}
+
+thead {
+  background-color: #000;
+  color: #FFF;
+  top: 6px;
+  bottom: 6px;
+
+}
+
+thead td::before, thead td::after, tr:last-child td:nth-last-child(3)::before {
+  content: "" !important;
+}
+
+td {
+  padding: 12px;
+}
+
+td:nth-child(2n)::before, td:nth-child(4n)::before {
+  content: "$";
+  text-align: center;
+}
+
+td:nth-child(3n) {
+  text-align: center;
+}
+
+td:nth-child(3n)::before {
+  content: "x "
+}
+
+td:nth-child(3n)::after {
+  content: " ="
+}
+
+tr:nth-child(2n) {
+  background: #9DCFDF;
+}
+
+
+
+table {
+  width: 640px;
+}
+
+input {
+  font-size: 14px;
+  border-width: 0px;
+  color: #FFF;
+  height: 2em;
+  margin-top: 12px;
+}
+input:nth-child(2) {
+  background-color: green;
+}
+
+input:nth-child(3) {
+  background-color: red;
+}
