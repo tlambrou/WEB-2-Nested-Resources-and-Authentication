@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Javascript Assessment</title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+
+var path = "https://drive.google.com/file/d/0B73YWNprIIJdT1NHQnlVeEh1WFE/view"
+
+function fetch_data(path) {
+  return new Promise(function(resolve, reject){
+    
+  })
+}
+
+function greet(name) {
+  return new Promise(function(resolve, reject){
+    setTimeout(function() {
+      // name = 0; // <-- Somethign happened to name here.
+      if (typeof name === 'string') {
+        resolve('hello '+name);
+      } else {
+        reject('Name must be a string!');
+      }
+    }, 1233);
+  });
+}
+
+function uppercaser(str) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function(){
+      if (typeof str === 'string') {
+        resolve(str.toUpperCase());
+      } else {
+        reject('Argument to uppercaser must be string');
+      }
+    }, 1500)
+  });
+}
+
+greet("123").then(function(str){
+  // console.log('str:'+str);
+  return uppercaser();
+  // return uppercaser();
+}).then(function(str){
+  console.log();
+}).catch(function(err){
+  console.log(err);
+});
+
+
+</script>
+
+</html>
