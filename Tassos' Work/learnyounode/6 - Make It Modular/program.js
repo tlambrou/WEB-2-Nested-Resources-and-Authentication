@@ -8,13 +8,10 @@ let callback = (err, data) => {
   if (err) {
     return console.error("Whoops there was an error!\nError: " + err)
   } else {
-
-    data.map((n) => {
-      return console.log(n)
+    data.forEach((n) => {
+      console.log(n)
     })
-
   }
 }
-
 
 tassos(dirname, extension, callback)
