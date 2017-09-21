@@ -11,6 +11,7 @@ httpModule.get(url, (response) => {
       console.log(data.length)
       console.log(data.toString('utf8'))
     }))
-}).on('error', (error) => {
+  }
+).on('error', (error) => {
   console.log("Got error: " + error.message)
 })
