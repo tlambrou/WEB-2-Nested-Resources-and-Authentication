@@ -1,6 +1,5 @@
 var httpModule = require('http')
 var bl = require('bl')
-var concat = require('concat-stream')
 
 const url = process.argv[2]
 

@@ -1,57 +1,42 @@
 var httpModule = require('http')
 var bl = require('bl')
-var concat = require('concat-stream')
 
-const urlCount = process.argv.length - 2
-var urls = []
-var results = []
-var order = []
+var object = {
+  url: "",
+  data: "",
+  returned: false,
+  order: -1
+}
+var objects = [object, object, object]
 var returned = 0
 
-var callback = () => {
-  console.log("Length: " + results.length)
-  if (returned > 2) {
-    for (var j = 0; j < urlCount; j++) {
-      console.log(j)
+for (var i = 2; i < process.argv.length; i++) {
 
-      console.log(order[j], results[order[j]].toString('utf8'))
-    }
-  }
+  objects[i - 2].url = process.argv[i]
+  objects[i - 2].order = i - 2
+  callback(process.argv[i], i - 2)
+
 }
 
-var call = (url, index) => {
-  console.log("Before httpModule. | URL: " + url + " | Index: "+ index)
+function callback(url, index) {
   httpModule.get(url, (response) => {
-    console.log("After httpModule. | URL: " + url  + " | Index: "+ index)
     response.setEncoding('utf8')
     response.pipe(
       bl((err, data) => {
-        console.log("After bl. | URL: " + url + " | Index: "+ index)
-        // Add the order to the order array
-        order.push(returned)
-        // Add data to the results array
-        results.push(data)
-        callback()
-        // console.log(data.length)
-        // console.log(data.toString('utf8'))
+        returned++
+        objects[index].data = data.toString('utf8')
+        objects[index].returned = true
+        objects.forEach((n) => {
+          return console.log("Returned Bool: ", n.returned)
+        })
+        if (objects[0].returned == true && objects[1].returned == true && objects[2].returned == true){
+          for (var i = 0; i < objects.length; i++) {
+            console.log(objects[i].data)
+          }
+        }
       }))
-    }).on('error', (error) => {
-      console.error("Got error: " + error.message)
     }
-  )
+  ).on('error', (error) => {
+    console.log("Got error: " + error.message)
+  })
 }
-
-var series = (callback) => {
-  for (var i = 2; i < urlCount + 2; i++) {
-    // Grab the given corresponding url
-    url = process.argv[i]
-    // Add the url to the urls array
-    urls.push(url)
-    // Make get request
-    call(url, returned)
-    // Increment the returned count
-    returned++
-  }
-}
-
-series(callback)
